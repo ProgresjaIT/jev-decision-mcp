@@ -5,6 +5,8 @@ oficjalny MCP SDK 2.3.0 (`MCPServer`, następca FastMCP), oficjalny
 `typesafe-sdk` 0.7.5, Streamable HTTP `/mcp`, SQLite. Wersja 1.0.0.
 
 **Instalacja na osobnym Ubuntu: [INSTALL.md](INSTALL.md).** Projekt nie wymaga WSL.
+Przy instalacji uzupełniasz tylko `TYPESAFE_API_KEY`. Uruchom `./install.sh`,
+aby automatycznie przygotować token MCP i ustawienia kontenera, następnie `./start.sh`.
 
 ## Architektura
 

@@ -113,16 +113,19 @@ chmod 600 .env
 nano .env
 ```
 
-`install.sh` tworzy `.env` tylko jeśli go nie ma i generuje mocny MCP_TOKEN.
-Istniejącego pliku nigdy nie nadpisuje. Nie instaluje samodzielnie Dockera, nie
+**Uzupełnij tylko `TYPESAFE_API_KEY`.** Szablon `.env.example` zawiera wyłącznie ten
+sekret. `install.sh` tworzy `.env`, generuje mocny MCP_TOKEN i dodaje ustawienia
+kontenera. Jeśli `.env` już istnieje, uzupełnia brakujące ustawienia i brakujący
+lub pusty token, zachowując klucz API, istniejący token i własne ustawienia.
+Nie instaluje samodzielnie Dockera, nie
 zmienia firewalla i nie uruchamia usługi. W razie przerwania można powtórzyć.
 
-Ustaw:
+Opcjonalne ustawienia zaawansowane (dopisz do `.env` tylko jeśli potrzebujesz):
 
 | Zmienna | Znaczenie |
 |---|---|
 | TYPESAFE_API_KEY | oficjalny klucz TypeSafe; obowiązkowo uzupełnij |
-| MCP_TOKEN | odrębny losowy sekret klientów MCP; minimum 32 znaki |
+| MCP_TOKEN | generowany automatycznie; odrębny sekret klientów MCP |
 | MODEL | domyślnie przypięty `jev-1.14.0`; sprawdź dostępność na swoim koncie |
 | MCP_PORT | wolny port hosta, np. 8765, publikowany tylko na 127.0.0.1 |
 | PORT | port wewnątrz kontenera; ustawiony domyślnie, może być zmieniony |
@@ -141,7 +144,8 @@ Ustaw:
 | SCORE_MIN_FRACTION | próg Score jako część skali, np. 0.75 |
 | MAX_QUESTIONS / MAX_INPUT_BYTES | lokalne limity batch i rozmiaru danych |
 
-Pozostałe zmienne mają opisane domyślne wartości w `.env.example`. Nie zmniejszaj
+Domyślne wartości aplikacji są w `src/jev_decision/config.py`, a kontenera w
+`install.sh` i `docker-compose.yml`. Nie zmniejszaj
 RESERVED_INPUT_TOKENS poniżej udokumentowanego limitu kontekstu modelu. Model,
 taryfę i rezerwację zmieniaj razem. Nie edytuj konfiguracji za pośrednictwem agenta.
 Nie uruchamiaj `docker compose config` na publicznym terminalu/logu: rozwija sekrety.
