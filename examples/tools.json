@@ -1,0 +1,177 @@
+[
+  {
+    "name": "make_decision",
+    "arguments": {
+      "context": {
+        "client": "synthetic-client",
+        "posts_reviewed": 100,
+        "false_matches": 30,
+        "current_prompt": "Find all mentions of renovation",
+        "proposed_prompt": "Find explicit requests for renovation contractors; exclude ads and job offers",
+        "current_version": 7,
+        "rollback_available": true
+      },
+      "goal": "Poprawić trafność dopasowań bez utraty zapytań klientów",
+      "criteria": "Oprzeć ocenę na danych, nie zmieniać CRM, zachować rollback",
+      "options": {
+        "keep": "Pozostawić",
+        "test": "Testować nowy prompt na odrębnym zbiorze",
+        "review": "Potrzebne dane"
+      }
+    }
+  },
+  {
+    "name": "evaluate_condition",
+    "arguments": {
+      "context": {
+        "client": "synthetic-client",
+        "posts_reviewed": 100,
+        "false_matches": 30,
+        "current_prompt": "Find all mentions of renovation",
+        "proposed_prompt": "Find explicit requests for renovation contractors; exclude ads and job offers",
+        "current_version": 7,
+        "rollback_available": true
+      },
+      "goal": "Czy klient wymaga optymalizacji filtrów?",
+      "criteria": "Oprzeć ocenę na danych, nie zmieniać CRM, zachować rollback"
+    }
+  },
+  {
+    "name": "score_quality",
+    "arguments": {
+      "context": {
+        "client": "synthetic-client",
+        "posts_reviewed": 100,
+        "false_matches": 30,
+        "current_prompt": "Find all mentions of renovation",
+        "proposed_prompt": "Find explicit requests for renovation contractors; exclude ads and job offers",
+        "current_version": 7,
+        "rollback_available": true
+      },
+      "goal": "Poprawić trafność dopasowań bez utraty zapytań klientów",
+      "criteria": [
+        "Niejasny cel, brak wykluczeń",
+        "Cel poprawny, brak części wykluczeń",
+        "Precyzyjny cel i pełne wykluczenia"
+      ]
+    }
+  },
+  {
+    "name": "evaluate_risk",
+    "arguments": {
+      "context": {
+        "client": "synthetic-client",
+        "posts_reviewed": 100,
+        "false_matches": 30,
+        "current_prompt": "Find all mentions of renovation",
+        "proposed_prompt": "Find explicit requests for renovation contractors; exclude ads and job offers",
+        "current_version": 7,
+        "rollback_available": true
+      },
+      "goal": "Poprawić trafność dopasowań bez utraty zapytań klientów",
+      "criteria": "Oprzeć ocenę na danych, nie zmieniać CRM, zachować rollback"
+    }
+  },
+  {
+    "name": "compare_options",
+    "arguments": {
+      "context": {
+        "client": "synthetic-client",
+        "posts_reviewed": 100,
+        "false_matches": 30,
+        "current_prompt": "Find all mentions of renovation",
+        "proposed_prompt": "Find explicit requests for renovation contractors; exclude ads and job offers",
+        "current_version": 7,
+        "rollback_available": true
+      },
+      "goal": "Poprawić trafność dopasowań bez utraty zapytań klientów",
+      "criteria": "Oprzeć ocenę na danych, nie zmieniać CRM, zachować rollback",
+      "options": {
+        "current": "Obecny prompt",
+        "proposed": "Proponowany prompt",
+        "insufficient": "Brak dowodów poprawy"
+      }
+    }
+  },
+  {
+    "name": "classify_data",
+    "arguments": {
+      "context": {
+        "post": "Szukam firmy do remontu łazienki"
+      },
+      "goal": "Poprawić trafność dopasowań bez utraty zapytań klientów",
+      "criteria": "Oprzeć ocenę na danych, nie zmieniać CRM, zachować rollback",
+      "categories": {
+        "match": "Jawne poszukiwanie wykonawcy",
+        "no_match": "Reklama lub oferta pracy",
+        "unclear": "Brak danych"
+      }
+    }
+  },
+  {
+    "name": "validate_action",
+    "arguments": {
+      "context": {
+        "client": "synthetic-client",
+        "posts_reviewed": 100,
+        "false_matches": 30,
+        "current_prompt": "Find all mentions of renovation",
+        "proposed_prompt": "Find explicit requests for renovation contractors; exclude ads and job offers",
+        "current_version": 7,
+        "rollback_available": true
+      },
+      "goal": "Poprawić trafność dopasowań bez utraty zapytań klientów",
+      "criteria": "Oprzeć ocenę na danych, nie zmieniać CRM, zachować rollback",
+      "action": {
+        "operation": "radar.update",
+        "expected_version": 7,
+        "changes": {
+          "prompt": "Find explicit requests for renovation contractors; exclude ads and job offers"
+        }
+      }
+    }
+  },
+  {
+    "name": "batch_decisions",
+    "arguments": {
+      "context": {
+        "client": "synthetic-client",
+        "posts_reviewed": 100,
+        "false_matches": 30,
+        "current_prompt": "Find all mentions of renovation",
+        "proposed_prompt": "Find explicit requests for renovation contractors; exclude ads and job offers",
+        "current_version": 7,
+        "rollback_available": true
+      },
+      "questions": {
+        "needs_optimization": {
+          "type": "noul",
+          "instructions": "Czy dane wskazują potrzebę optymalizacji?"
+        },
+        "change_justified": {
+          "type": "noul",
+          "instructions": "Czy istnieje dostateczny dowód, że zmiana poprawi wyniki bez regresji?"
+        },
+        "quality": {
+          "type": "score",
+          "instructions": "Oceń proponowany prompt",
+          "criteria": [
+            "Niejasny",
+            "Częściowo poprawny",
+            "Precyzyjny"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "get_usage",
+    "arguments": {}
+  },
+  {
+    "name": "health_check",
+    "arguments": {
+      "check_api": false
+    }
+  }
+]

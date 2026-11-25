@@ -1,0 +1,7 @@
+{
+  "mcp_config": {
+    "shttp_servers": [
+      {"url": "https://TWOJA-DOMENA/mcp", "api_key": "WSTAW_MCP_TOKEN"}
+    ]
+  }
+}

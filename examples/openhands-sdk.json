@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "jev-decision": {
+      "url": "https://TWOJA-DOMENA/mcp",
+      "headers": {"Authorization": "Bearer WSTAW_MCP_TOKEN"}
+    }
+  }
+}
