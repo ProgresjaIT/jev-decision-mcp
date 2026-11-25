@@ -1,7 +1,10 @@
+import argparse
 import hmac
 import logging
 import os
+import secrets
 import sys
+from pathlib import Path
 from typing import Any
 
 import uvicorn
@@ -231,15 +234,29 @@ def create_app(settings=None, provider=None):
 
 def main():
     os.umask(0o077)
+    parser = argparse.ArgumentParser(description="Jev Decision MCP")
+    parser.add_argument("--transport", choices=("stdio", "http"), default="stdio")
+    parser.add_argument("--check-config", action="store_true")
+    args = parser.parse_args()
     try:
-        settings = Settings()
+        if args.transport == "stdio" and not args.check_config:
+            settings = Settings(
+                _env_file=None,
+                mcp_token=secrets.token_urlsafe(48),
+                db_path=os.environ.get(
+                    "DB_PATH",
+                    str(Path.home() / ".local/share/jev-decision/history.sqlite3"),
+                ),
+            )
+        else:
+            settings = Settings()
     except Exception:
         print(
             "Invalid configuration: check .env values; details suppressed to protect secrets.",
             file=sys.stderr,
         )
         raise SystemExit(2) from None
-    if "--check-config" in sys.argv:
+    if args.check_config:
         if not settings.typesafe_api_key.get_secret_value():
             print("Set TYPESAFE_API_KEY in .env", file=sys.stderr)
             raise SystemExit(2)
@@ -247,6 +264,9 @@ def main():
         return
     for name in ("typesafe_sdk", "httpx2", "httpcore2"):
         logging.getLogger(name).setLevel(logging.CRITICAL)
+    if args.transport == "stdio":
+        build_server(DecisionService(settings)).run(transport="stdio")
+        return
     uvicorn.run(
         create_app(settings),
         host=settings.host,

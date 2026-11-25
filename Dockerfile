@@ -7,4 +7,4 @@ COPY pyproject.toml README.md /app/
 COPY src /app/src
 RUN pip install --no-deps . && useradd --uid 10001 --create-home jev && mkdir /data && chown jev:jev /data
 USER 10001:10001
-CMD ["jev-decision-mcp"]
+CMD ["jev-decision-mcp", "--transport", "http"]
